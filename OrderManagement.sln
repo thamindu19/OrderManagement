@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{F261F525-4C6B-4FA0-BA1B-40EA5B024D38}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "OrderManagement.Api\Api.csproj", "{0B3296F3-4D55-4E0B-B2CF-DC5A8A665888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "API\Api.csproj", "{0B3296F3-4D55-4E0B-B2CF-DC5A8A665888}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
