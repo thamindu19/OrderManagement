@@ -20,6 +20,7 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
 
         public CreatePurchaseOrderCommandHandler(IMapper mapper, IAsyncRepository<PurchaseOrder> purchaseOrderRepository, IEmailService emailService)
         {
+            _mapper = mapper;
             _purchaseOrderRepository = purchaseOrderRepository;
             _mapper = mapper;
             _emailService = emailService;
