@@ -11,7 +11,7 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
     {
         public CreatePurchaseOrderCommandValidator() {
             RuleFor(p => p.DeliveryLocation).NotEmpty().WithMessage("{PropertyName} is required.");
-            RuleFor(p => p.DeliverOn).NotEmpty().WithMessage("{PropertyName} is required.").Null().GreaterThan(DateTime.Now);
+            RuleFor(p => p.DeliverOn).NotEmpty().WithMessage("{PropertyName} is required.").GreaterThan(DateTime.Now);
             RuleFor(p => p.Total).NotEmpty().WithMessage("{PropertyName} is required.").GreaterThan(0);
         }
     }

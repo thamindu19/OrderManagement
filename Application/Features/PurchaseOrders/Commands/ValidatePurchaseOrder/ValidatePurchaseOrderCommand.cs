@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Domain.Entities;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
+namespace Application.Features.PurchaseOrders.Commands.ValidatePurchaseOrder
 {
-    public class CreatePurchaseOrderDto
+    public class ValidatePurchaseOrderCommand : IRequest
     {
         public Guid Id { get; set; }
         public string Vendor { get; set; } = string.Empty;

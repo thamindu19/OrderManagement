@@ -20,7 +20,6 @@ namespace Persistence
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
-            services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
 
             return services;

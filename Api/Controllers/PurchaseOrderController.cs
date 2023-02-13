@@ -1,4 +1,5 @@
 ﻿using Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder;
+using Application.Features.PurchaseOrders.Commands.ValidatePurchaseOrder;
 using Application.Features.PurchaseOrders.Queries.GetPurchaseOrderDetail;
 using Application.Features.PurchaseOrders.Queries.GetPurchaseOrderList;
 using MediatR;
@@ -39,6 +40,16 @@ namespace Api.Controllers
         {
             var id = await _mediator.Send(createPurchaseOrderCommand);
             return Ok(id);
+        }
+
+        [HttpPut(Name = "ValidatePurchaseOrder")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Validate([FromBody] ValidatePurchaseOrderCommand updateEventCommand)
+        {
+            await _mediator.Send(updateEventCommand);
+            return NoContent();
         }
     }
 }

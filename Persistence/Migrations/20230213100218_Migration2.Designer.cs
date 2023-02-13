@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,10 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(OrderManagementDbContext))]
-    partial class OrderManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230213100218_Migration2")]
+    partial class Migration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,9 +90,8 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ItemId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -131,11 +132,11 @@ namespace Persistence.Migrations
                         {
                             Id = new Guid("ee272f8b-6096-4cb6-8625-bb4bb2d89e8b"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeliverOn = new DateTime(2023, 8, 13, 15, 40, 59, 198, DateTimeKind.Local).AddTicks(8132),
+                            DeliverOn = new DateTime(2023, 8, 13, 15, 32, 17, 554, DateTimeKind.Local).AddTicks(516),
                             DeliveryLocation = "",
-                            ItemId = "abcd",
+                            ItemId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             Notes = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
-                            PlacedOn = new DateTime(2023, 2, 13, 15, 40, 59, 198, DateTimeKind.Local).AddTicks(8119),
+                            PlacedOn = new DateTime(2023, 2, 13, 15, 32, 17, 554, DateTimeKind.Local).AddTicks(501),
                             Status = 0,
                             Total = 6500000,
                             Vendor = "John & Sons Toyota Dealers",

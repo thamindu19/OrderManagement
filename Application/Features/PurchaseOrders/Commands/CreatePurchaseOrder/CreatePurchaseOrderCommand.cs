@@ -18,7 +18,7 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
         public int Status { get; set; }
         public string DeliveryLocation { get; set; } = string.Empty;
         public string? Notes { get; set; }
-        public ICollection<Item> Orders { get; set; } = default!;
+        public string ItemId { get; set; } = default!;
         public int Total { get; set; }
         public string? PaymentTerms { get; set; }
 

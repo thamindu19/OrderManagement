@@ -44,7 +44,18 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
             }
             if (createPurchaseOrderCommandResponse.Success)
             {
-                var purchaseOrder = new PurchaseOrder() { Vendor = request.Vendor };
+                var purchaseOrder = new PurchaseOrder() {
+                    Vendor = request.Vendor,
+                    VendorEmail = request.VendorEmail,
+                    PlacedOn = request.PlacedOn,
+                    DeliverOn = request.DeliverOn,
+                    Status = request.Status,
+                    DeliveryLocation = request.DeliveryLocation,
+                    Notes = request.Notes,
+                    Total = request.Total,
+                    ItemId = request.ItemId,
+                    PaymentTerms = request.PaymentTerms,
+    };
                 purchaseOrder = await _purchaseOrderRepository.AddAsync(purchaseOrder);
                 createPurchaseOrderCommandResponse.PurchaseOrder = _mapper.Map<CreatePurchaseOrderDto>(purchaseOrder);
             }
