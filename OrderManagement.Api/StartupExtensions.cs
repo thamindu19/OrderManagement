@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistence;
 
-namespace OrderManagement.Api
+namespace Api
 {
     public static class StartupExtensions
     {

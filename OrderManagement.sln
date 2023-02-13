@@ -19,11 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{9225A4F2-87E4-4118-BEDA-8136441D2BCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{5F7C6DA4-B9E9-4699-8446-FE3F2D4F351D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{5F7C6DA4-B9E9-4699-8446-FE3F2D4F351D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{F261F525-4C6B-4FA0-BA1B-40EA5B024D38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{F261F525-4C6B-4FA0-BA1B-40EA5B024D38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Api", "OrderManagement.Api\OrderManagement.Api.csproj", "{0B3296F3-4D55-4E0B-B2CF-DC5A8A665888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "OrderManagement.Api\Api.csproj", "{0B3296F3-4D55-4E0B-B2CF-DC5A8A665888}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

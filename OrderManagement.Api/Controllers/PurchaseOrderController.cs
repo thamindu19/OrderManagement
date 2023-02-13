@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace OrderManagement.Api.Controllers
+namespace Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
