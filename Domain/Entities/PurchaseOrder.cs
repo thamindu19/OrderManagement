@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class PurchaseOrder : AuditableEntity
+    public class PurchaseOrder : BaseAuditableEntity
     {
         public Guid Id { get; set; }
         public string Vendor { get; set; } = string.Empty;

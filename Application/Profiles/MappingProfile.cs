@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Application.Features.PurchaseOrders.Queries.GetPurchaseOrderDetail;
 using Application.Features.PurchaseOrders.Queries.GetPurchaseOrderList;
 using Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder;
-using Application.Features.PurchaseOrders.Commands.ValidatePurchaseOrder;
 
 namespace Application.Profiles
 {
@@ -22,7 +21,6 @@ namespace Application.Profiles
              
             CreateMap<PurchaseOrder, CreatePurchaseOrderCommand>().ReverseMap();
             CreateMap<PurchaseOrder, CreatePurchaseOrderDto>().ReverseMap();
-            CreateMap<PurchaseOrder, ValidatePurchaseOrderCommand>().ReverseMap();
         }
     }
 }

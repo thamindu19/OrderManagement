@@ -3,6 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Models.Mail;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Events;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,12 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
     {
         private readonly IAsyncRepository<PurchaseOrder> _purchaseOrderRepository;
         private readonly IMapper _mapper;
-        private readonly IEmailService _emailService;
 
-        public CreatePurchaseOrderCommandHandler(IMapper mapper, IAsyncRepository<PurchaseOrder> purchaseOrderRepository, IEmailService emailService)
+        public CreatePurchaseOrderCommandHandler(IMapper mapper, IAsyncRepository<PurchaseOrder> purchaseOrderRepository)
         {
             _mapper = mapper;
             _purchaseOrderRepository = purchaseOrderRepository;
             _mapper = mapper;
-            _emailService = emailService;
         }
 
         public async Task<CreatePurchaseOrderCommandResponse> Handle(CreatePurchaseOrderCommand request, CancellationToken cancellationToken)
@@ -44,30 +43,11 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
             }
             if (createPurchaseOrderCommandResponse.Success)
             {
-                var purchaseOrder = new PurchaseOrder() {
-                    Vendor = request.Vendor,
-                    VendorEmail = request.VendorEmail,
-                    PlacedOn = request.PlacedOn,
-                    DeliverOn = request.DeliverOn,
-                    Status = request.Status,
-                    DeliveryLocation = request.DeliveryLocation,
-                    Notes = request.Notes,
-                    Total = request.Total,
-                    ItemId = request.ItemId,
-                    PaymentTerms = request.PaymentTerms,
-    };
-                purchaseOrder = await _purchaseOrderRepository.AddAsync(purchaseOrder);
-                createPurchaseOrderCommandResponse.PurchaseOrder = _mapper.Map<CreatePurchaseOrderDto>(purchaseOrder);
-            }
+                var @purchaseOrder = _mapper.Map<PurchaseOrder>(request);
+                @purchaseOrder.AddDomainEvent(new PurchaseOrderCreatedEvent(@purchaseOrder));
+                @purchaseOrder = await _purchaseOrderRepository.AddAsync(@purchaseOrder);
 
-            var email = new Email() { To = "thamindub@itx360.com", Body = $"A new purchase order was created: {request}", Subject = "New purchase order" };
-
-            try
-            {
-                await _emailService.SendEmail(email);
-            }
-            catch (Exception)
-            {
+                createPurchaseOrderCommandResponse.PurchaseOrder = _mapper.Map<CreatePurchaseOrderDto>(@purchaseOrder);
             }
 
             return createPurchaseOrderCommandResponse;

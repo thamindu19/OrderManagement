@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using Domain.Entities;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,9 +13,13 @@ namespace Persistence
 {
     public class OrderManagementDbContext : DbContext
     {
-        public OrderManagementDbContext(DbContextOptions<OrderManagementDbContext> options)
+
+        private readonly IMediator _mediator;
+
+        public OrderManagementDbContext(DbContextOptions<OrderManagementDbContext> options, IMediator mediator)
                    : base(options)
         {
+            _mediator = mediator;
         }
 
         public DbSet<PurchaseOrder> ?PurchaseOrders { get; set; }
@@ -47,9 +52,9 @@ namespace Persistence
             });
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            foreach (var entry in ChangeTracker.Entries<BaseAuditableEntity>())
             {
                 switch (entry.State)
                 {
@@ -61,7 +66,10 @@ namespace Persistence
                         break;
                 }
             }
-            return base.SaveChangesAsync(cancellationToken);
+
+            await _mediator.DispatchDomainEvents(this);
+
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }
