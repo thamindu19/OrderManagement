@@ -24,9 +24,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Item", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -50,17 +52,22 @@ namespace Persistence.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("PurchaseOrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PurchaseOrderId");
 
                     b.ToTable("Items");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
+                            Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Toyota AXE 3",
                             Name = "Car",
@@ -85,10 +92,6 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeliveryLocation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ItemId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -129,18 +132,29 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ee272f8b-6096-4cb6-8625-bb4bb2d89e8b"),
+                            Id = new Guid("92a36f8b-3f8c-4638-a02f-959fcc3435a8"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeliverOn = new DateTime(2023, 8, 13, 15, 40, 59, 198, DateTimeKind.Local).AddTicks(8132),
+                            DeliverOn = new DateTime(2023, 8, 15, 13, 34, 52, 205, DateTimeKind.Local).AddTicks(7361),
                             DeliveryLocation = "",
-                            ItemId = "abcd",
                             Notes = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
-                            PlacedOn = new DateTime(2023, 2, 13, 15, 40, 59, 198, DateTimeKind.Local).AddTicks(8119),
+                            PlacedOn = new DateTime(2023, 2, 15, 13, 34, 52, 205, DateTimeKind.Local).AddTicks(7347),
                             Status = 0,
                             Total = 6500000,
                             Vendor = "John & Sons Toyota Dealers",
                             VendorEmail = ""
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Item", b =>
+                {
+                    b.HasOne("Domain.Entities.PurchaseOrder", null)
+                        .WithMany("Items")
+                        .HasForeignKey("PurchaseOrderId");
+                });
+
+            modelBuilder.Entity("Domain.Entities.PurchaseOrder", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
