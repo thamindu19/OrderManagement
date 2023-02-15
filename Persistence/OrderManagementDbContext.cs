@@ -22,8 +22,8 @@ namespace Persistence
             _mediator = mediator;
         }
 
-        public DbSet<PurchaseOrder> ?PurchaseOrders { get; set; }
-        public DbSet<Item> ?Items { get; set; }
+        public DbSet<PurchaseOrder>? PurchaseOrders { get; set; }
+        public DbSet<Item>? Items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace Persistence
 
             modelBuilder.Entity<Item>().HasData(new Item
             {
-                Id = 1,
+                Id = carGuid,
                 Name = "Car",
                 Description = "Toyota AXE 3",
                 Quantity = 1,
