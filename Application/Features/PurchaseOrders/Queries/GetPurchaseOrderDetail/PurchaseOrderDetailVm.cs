@@ -13,8 +13,8 @@ namespace Application.Features.PurchaseOrders.Queries.GetPurchaseOrderDetail
         public string Vendor { get; set; } = string.Empty;
         public DateTime PlacedOn { get; set; }
         public DateTime DeliverOn { get; set; }
-        public int Status { get; set; }
-        public ItemDto Item { get; set; } = default!;
+        public string Status { get; set; } = string.Empty;
+        public ICollection<ItemDto>? Items { get; set; }
         public int Total { get; set; }
     }
 }

@@ -10,21 +10,18 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
 {
     public class CreatePurchaseOrderCommand : IRequest<CreatePurchaseOrderCommandResponse>
     {
-        public Guid Id { get; set; }
         public string Vendor { get; set; } = string.Empty;
         public string VendorEmail { get; set; } = string.Empty;
-        public DateTime PlacedOn { get; set; }
         public DateTime DeliverOn { get; set; }
-        public int Status { get; set; }
         public string DeliveryLocation { get; set; } = string.Empty;
         public string? Notes { get; set; }
-        public string ItemId { get; set; } = default!;
+        public ICollection<CreateItemDto>? Items { get; set; }
         public int Total { get; set; }
         public string? PaymentTerms { get; set; }
 
         public override string ToString()
         {
-            return $"Purchase Order Id: {Id}; Vendor: {Vendor} Date: {PlacedOn} Total: {Total}";
+            return $"Create Purchase Order -> Vendor: {Vendor} Total: {Total}";
         }
     }
 }

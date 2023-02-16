@@ -14,10 +14,10 @@ namespace Domain.Entities
         public string VendorEmail { get; set; } = string.Empty;
         public DateTime PlacedOn { get; set; }
         public DateTime DeliverOn { get; set; }
-        public int Status { get;set; }
+        public string Status { get;set; } = string.Empty;
         public string DeliveryLocation { get; set; } = string.Empty;
         public string? Notes { get;set; }
-        public string ItemId { get; set; } = default!;
+        public ICollection<Item>? Items { get; set; }
         public int Total { get;set; }
         public string? PaymentTerms { get; set; }
     }

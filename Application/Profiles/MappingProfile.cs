@@ -17,8 +17,10 @@ namespace Application.Profiles
         public MappingProfile() {
             CreateMap<PurchaseOrder, PurchaseOrderListVm>().ReverseMap();
             CreateMap<PurchaseOrder, PurchaseOrderDetailVm>().ReverseMap();
-            CreateMap<Item, ItemDto>();
-             
+            
+            CreateMap<Item, ItemDto>().ReverseMap(); ;
+            CreateMap<Item, CreateItemDto>().ReverseMap(); ;
+
             CreateMap<PurchaseOrder, CreatePurchaseOrderCommand>().ReverseMap();
             CreateMap<PurchaseOrder, CreatePurchaseOrderDto>().ReverseMap();
         }

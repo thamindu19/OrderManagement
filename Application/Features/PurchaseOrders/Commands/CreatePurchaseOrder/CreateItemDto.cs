@@ -1,13 +1,12 @@
-﻿using Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.PurchaseOrders.Queries.GetPurchaseOrderDetail
+namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
 {
-    public class ItemDto
+    public class CreateItemDto
     {
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }

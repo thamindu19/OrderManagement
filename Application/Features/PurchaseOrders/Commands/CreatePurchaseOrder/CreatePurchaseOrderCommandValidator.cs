@@ -10,8 +10,10 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
     public class CreatePurchaseOrderCommandValidator : AbstractValidator<CreatePurchaseOrderCommand>
     {
         public CreatePurchaseOrderCommandValidator() {
-            RuleFor(p => p.DeliveryLocation).NotEmpty().WithMessage("{PropertyName} is required.");
+            RuleFor(p => p.Vendor).NotEmpty().WithMessage("{PropertyName} is required.");
+            RuleFor(p => p.VendorEmail).NotEmpty().WithMessage("{PropertyName} is required.");
             RuleFor(p => p.DeliverOn).NotEmpty().WithMessage("{PropertyName} is required.").GreaterThan(DateTime.Now);
+            RuleFor(p => p.DeliveryLocation).NotEmpty().WithMessage("{PropertyName} is required.");
             RuleFor(p => p.Total).NotEmpty().WithMessage("{PropertyName} is required.").GreaterThan(0);
         }
     }

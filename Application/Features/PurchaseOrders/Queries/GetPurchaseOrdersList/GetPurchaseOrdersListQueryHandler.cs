@@ -12,10 +12,10 @@ namespace Application.Features.PurchaseOrders.Queries.GetPurchaseOrderList
 {
     public class GetPurchaseOrdersListQueryHandler : IRequestHandler<GetPurchaseOrdersListQuery, List<PurchaseOrderListVm>>
     {
-        private readonly IAsyncRepository<PurchaseOrder> _purchaseOrderRepository;
+        private readonly IPurchaseOrderRepository _purchaseOrderRepository;
         private readonly IMapper _mapper;
 
-        public GetPurchaseOrdersListQueryHandler(IMapper mapper, IAsyncRepository<PurchaseOrder> purchaseOrderRepository)
+        public GetPurchaseOrdersListQueryHandler(IMapper mapper, IPurchaseOrderRepository purchaseOrderRepository)
         {
             _mapper = mapper;
             _purchaseOrderRepository = purchaseOrderRepository;
@@ -23,7 +23,7 @@ namespace Application.Features.PurchaseOrders.Queries.GetPurchaseOrderList
 
         public async Task<List<PurchaseOrderListVm>> Handle(GetPurchaseOrdersListQuery request, CancellationToken cancellationToken)
         {
-            var allPurchaseOrders = (await _purchaseOrderRepository.ListAllAsync()).OrderBy(x => x.PlacedOn);
+            var @allPurchaseOrders = (await _purchaseOrderRepository.ListAllWithItemsAsync()).OrderBy(p => p.PlacedOn);
             return _mapper.Map<List<PurchaseOrderListVm>>(allPurchaseOrders);
         }
     }

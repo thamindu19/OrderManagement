@@ -34,7 +34,7 @@ namespace Api.Controllers
             return Ok(dto);
         }
 
-        [HttpPost(Name = "AddPurchaseOrder")]
+        [HttpPost(Name = "CreatePurchaseOrder")]
         public async Task<ActionResult<Guid>> Create([FromBody] CreatePurchaseOrderCommand createPurchaseOrderCommand)
         {
             var id = await _mediator.Send(createPurchaseOrderCommand);

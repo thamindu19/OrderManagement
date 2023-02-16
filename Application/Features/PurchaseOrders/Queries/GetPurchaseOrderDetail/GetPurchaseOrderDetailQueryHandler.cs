@@ -13,31 +13,19 @@ namespace Application.Features.PurchaseOrders.Queries.GetPurchaseOrderDetail
 {
     public class GetPurchaseOrderDetailQueryHandler : IRequestHandler<GetPurchaseOrderDetailQuery, PurchaseOrderDetailVm>
     {
-        private readonly IAsyncRepository<PurchaseOrder> _purchaseorderRepository;
-        private readonly IAsyncRepository<Item> _itemRepository;
+        private readonly IPurchaseOrderRepository _purchaseorderRepository;
         private readonly IMapper _mapper;
 
-        public GetPurchaseOrderDetailQueryHandler(IMapper mapper, IAsyncRepository<PurchaseOrder> purchaseorderRepository, IAsyncRepository<Item> orderRepository)
+        public GetPurchaseOrderDetailQueryHandler(IMapper mapper, IPurchaseOrderRepository purchaseorderRepository)
         {
             _mapper = mapper;
             _purchaseorderRepository = purchaseorderRepository;
-            _itemRepository = orderRepository;
         }
 
         public async Task<PurchaseOrderDetailVm> Handle(GetPurchaseOrderDetailQuery request, CancellationToken cancellationToken)
         {
-            var @purchaseOrder = await _purchaseorderRepository.GetByIdAsync(request.Id);
-            var purchaseOrderDetailDto = _mapper.Map<PurchaseOrderDetailVm>(@purchaseOrder);
-/*
-            var Item = await _itemRepository.GetByIdAsync(@purchaseOrder.Id);
-
-            if (Item == null)
-            {
-                throw new NotFoundException(nameof(PurchaseOrder), request.Id);
-            }
-            purchaseOrderDetailDto.Item = _mapper.Map<ItemDto>(Item);*/
-
-            return purchaseOrderDetailDto;
+            var @purchaseOrder = await _purchaseorderRepository.GetByIdWithItemsAsync(request.Id);
+            return _mapper.Map<PurchaseOrderDetailVm>(@purchaseOrder);
         }
     }
 }

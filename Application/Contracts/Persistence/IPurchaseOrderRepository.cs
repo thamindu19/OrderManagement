@@ -9,7 +9,8 @@ namespace Application.Contracts.Persistence
 {
     public interface IPurchaseOrderRepository : IAsyncRepository<PurchaseOrder>
     {
-
+        Task<PurchaseOrder> GetByIdWithItemsAsync(Guid id);
+        Task<IReadOnlyList<PurchaseOrder>> ListAllWithItemsAsync();
     }
 }
  

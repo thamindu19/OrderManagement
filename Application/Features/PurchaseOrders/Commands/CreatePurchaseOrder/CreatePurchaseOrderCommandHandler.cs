@@ -20,7 +20,6 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
 
         public CreatePurchaseOrderCommandHandler(IMapper mapper, IAsyncRepository<PurchaseOrder> purchaseOrderRepository)
         {
-            _mapper = mapper;
             _purchaseOrderRepository = purchaseOrderRepository;
             _mapper = mapper;
         }
@@ -44,6 +43,9 @@ namespace Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder
             if (createPurchaseOrderCommandResponse.Success)
             {
                 var @purchaseOrder = _mapper.Map<PurchaseOrder>(request);
+                @purchaseOrder.PlacedOn = DateTime.Now;
+                @purchaseOrder.Status = "Created";
+                purchaseOrder.Items = _mapper.Map<ICollection<Item>>(request.Items);
                 @purchaseOrder.AddDomainEvent(new PurchaseOrderCreatedEvent(@purchaseOrder));
                 @purchaseOrder = await _purchaseOrderRepository.AddAsync(@purchaseOrder);
 
