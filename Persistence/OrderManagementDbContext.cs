@@ -24,7 +24,7 @@ namespace Persistence
             _mediator = mediator;
         }
 
-        public DbSet<Item>? PurchaseOrders { get; set; }
+        public DbSet<PurchaseOrder>? PurchaseOrders { get; set; }
         public DbSet<Item>? Items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

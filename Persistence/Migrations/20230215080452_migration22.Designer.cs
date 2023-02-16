@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,10 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(OrderManagementDbContext))]
-    partial class OrderManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230215080452_migration22")]
+    partial class migration22
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +30,22 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -48,7 +64,18 @@ namespace Persistence.Migrations
 
                     b.HasIndex("PurchaseOrderId");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Toyota AXE 3",
+                            Name = "Car",
+                            Price = 6500000,
+                            Quantity = 1
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.PurchaseOrder", b =>
@@ -85,9 +112,8 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("PlacedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<int>("Total")
                         .HasColumnType("int");
@@ -103,7 +129,22 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PurchaseOrder");
+                    b.ToTable("PurchaseOrders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("92a36f8b-3f8c-4638-a02f-959fcc3435a8"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeliverOn = new DateTime(2023, 8, 15, 13, 34, 52, 205, DateTimeKind.Local).AddTicks(7361),
+                            DeliveryLocation = "",
+                            Notes = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
+                            PlacedOn = new DateTime(2023, 2, 15, 13, 34, 52, 205, DateTimeKind.Local).AddTicks(7347),
+                            Status = 0,
+                            Total = 6500000,
+                            Vendor = "John & Sons Toyota Dealers",
+                            VendorEmail = ""
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Item", b =>
